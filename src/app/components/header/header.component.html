@@ -1,34 +1,29 @@
+<html>
 <head>
     <meta charset="utf-8">
     <title>ecoConduite</title>
-    <!--logo ne marche pas non plus-->
-    <link rel="icon" type="image/png" src="/../../src/assets/logo.png"/>
+    <link rel="icon" type="image/png" src="#"/>
 
   </head>
   
   <header>
         <div id="entete">
           <div id="logo">
-            <img src="logo.png">
+            <img src="../../../assets/logo.png">
           </div>
         </div>
   </header>
   
   <div id="sidebar">
-    <div class="toggle-btn" onclick="toggleSidebar()">
+    <div class="toggle-btn" (click)="toggleSidebar($event)">
       <button type="button">☰</button>
     </div>
     <ul>
-      <li><a routerLink="#"> Acceuil </a></li>
-      <li><a routerLink="#"> Navigation </a></li>
-      <li><a routerLink="#"> Se connecter </a></li>
-      <li><a routerLink="#"> Contact </a></li>
-      <li><a routerLink="#"> A propos </a></li>
+      <li><a routerLink="home"> Acceuil </a></li>
+      <li><a routerLink="navigation"> Navigation </a></li>
+      <li><a routerLink="login"> Se connecter </a></li>
+      <li><a routerLink="contact"> Contact </a></li>
+      <li><a routerLink="about"> A propos </a></li>
     </ul>
   </div>
-<script>
-  //doesnt work!
-    function toggleSidebar(){
-  document.getElementById("sidebar").classList.toggle('active');
-  }
-</script>
+</html>

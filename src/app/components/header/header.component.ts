@@ -12,4 +12,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  toggleSidebar(event: Event){
+    document.getElementById("sidebar").classList.toggle('active');
+    }
 }
