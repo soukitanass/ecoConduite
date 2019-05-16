@@ -1,0 +1,27 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ecoConduite</title>
+    <link rel="icon" type="image/ico" src="../../../assets/favicon.ico"/>
+
+</head>
+  
+<header>
+  <div id="logo">
+    <img src="../../../assets/logo.png">
+  </div>
+</header>
+  
+<div id="sidebar">
+  <div class="toggle-btn" (click)="toggleSidebar($event)">
+    <button type="button">☰</button>
+  </div>
+  <ul>
+    <li><a routerLink=""> Acceuil </a></li>
+    <li><a routerLink="navigation"> Navigation </a></li>
+    <li><a routerLink="login"> Se connecter </a></li>
+    <li><a routerLink="contact"> Contact </a></li>
+    <li><a routerLink="about"> A propos </a></li>
+  </ul>
+</div>
+</html>

@@ -1,0 +1,60 @@
+html{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+header{
+  background: #000;
+  width: 100%;
+  color: white;
+}
+#logo img{
+  height: 100px;
+}
+#sidebar{
+    position:fixed;
+    width:150px;
+    height:100%;
+    background-color: rgba(51, 49, 49, 0.9);
+    left:-150px;
+    transition:all 500ms ease;
+    z-index: 1;
+  }
+  #sidebar.active{
+    left:0px;
+  }
+  #sidebar ul li{
+    color:rgba(230,230,230,0.9);
+    list-style:none;
+    padding:15px 10px;
+    border-bottom:1px solid rgba(100,100,100,0.3);
+  }
+  #sidebar .toggle-btn{
+    position:absolute;
+    left:150px;
+    top:00px;
+  }
+  button{
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: none;
+    color: white;
+    background-color: rgba(51, 49, 49, 0.9)
+  }
+  a{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  a:hover, button:hover{
+    color: #5BFF33;
+    cursor: pointer;
+  }

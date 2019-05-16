@@ -1,0 +1,22 @@
+#texte{
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 5%;
+    background: rgb(230,230,230);
+    font-size: 20px;
+    text-align: justify;
+    box-shadow: 1px 1px 12px #555;
+  }
+#coordonnees{
+  padding: 1%;
+}
+h1{
+  padding: 1%;
+  font-weight: bold;
+}
+#map{
+  height: 300px;
+  width: 100%;
+  border: 3px solid black;
+}
