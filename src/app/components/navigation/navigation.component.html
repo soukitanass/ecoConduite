@@ -1,4 +1,9 @@
-<p>
+<h1>
   navigation works!
-</p>
+</h1>
+<p>depart</p>
+<input #box1 (keyup.enter)="onEnterDeparture(box1.value)">
+<p> arrive</p>
+<input #box2 (keyup.enter)="onEnterArrival(box2.value)">
+    <p>vous avez choisi de partir de <b>{{chosenPlaceDeparture}}</b> pour arriver à <b>{{chosenPlaceArrival}}</b></p>
 <div id="map"></div>

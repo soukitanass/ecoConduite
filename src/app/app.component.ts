@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation, OnInit} from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, Input} from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,11 @@ import { Component, ViewEncapsulation, OnInit} from '@angular/core';
 export class AppComponent implements OnInit {
 
   constructor() {
-
   }
 
   ngOnInit() {
 
-  }
+
+}
+
 }
