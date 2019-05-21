@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import { __await } from 'tslib';
 import { async } from '@angular/core/testing';
-
+import {} from '@mapbox/mapbox-gl-directions'
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -16,17 +16,25 @@ export class NavigationComponent implements OnInit {
   map;
   markerArrival;
   markerDeparture;
+  mapboxDirection;
+  directions;
+  displayDirection;
 
   ngOnInit() {
+  /*******MAPBOX*************/
     this.mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
- 
     this.mapboxgl.accessToken = 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
+
     this.map = new this.mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11'
     });
     this.markerArrival = new this.mapboxgl.Marker()
     this.markerDeparture = new this.mapboxgl.Marker()
+  
+  /***** MAPQUEST*********/
+  const Directions = require('@mapquest/directions');
+  this.directions = new Directions({key:'m1jpNvsJysGjdIBF7S1SP3FvELZBsljP'})
   }
 
   chosenPlaceDeparture= '';
@@ -36,7 +44,6 @@ export class NavigationComponent implements OnInit {
 
   async onEnterDeparture(chosenPlace: string) { 
     this.chosenPlaceDeparture = chosenPlace;
-    console.log("Departure");
     const provider = new OpenStreetMapProvider();
     var test='';
     this.departure = await provider
@@ -50,7 +57,7 @@ export class NavigationComponent implements OnInit {
     .remove()
     .setLngLat([this.departureLong, this.departureLat])
     .addTo(this.map);
-    
+    // this.markerDeparture.setDraggable(true);
   }
 
   chosenPlaceArrival= '';
@@ -60,7 +67,6 @@ export class NavigationComponent implements OnInit {
 
    async onEnterArrival(chosenPlace: string) { 
     this.chosenPlaceArrival = chosenPlace;
-    console.log("Arrival");
     const provider = new OpenStreetMapProvider();
     this.arrival = await provider
     .search({ query: this.chosenPlaceArrival });
@@ -72,7 +78,29 @@ export class NavigationComponent implements OnInit {
     .remove()
     .setLngLat([this.arrivalLong, this.arrivalLat])
     .addTo(this.map);
+    // this.markerArrival.setDraggable(true);
     
-    
+}
+travel;
+ async searchDestination(){
+  this.travel = await this.directions.route({
+    locations: [
+      this.chosenPlaceDeparture,
+      this.chosenPlaceArrival
+    ],
+    maxRoutes: 3,
+    timeOverage: 99
+  })
+
+console.log(this.travel);
+// var lengthArray = this.travel.features.length
+// var latitudeArray :string[];
+// console.log(lengthArray);
+// for(var i; i<lengthArray; i++)
+// {
+//   latitudeArray[i] = this.travel.features[i].properties.latLng.lat;
+//   console.log(latitudeArray[i]);
+// }
+
 }
 }
