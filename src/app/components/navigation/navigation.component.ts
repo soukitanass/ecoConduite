@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import { __await } from 'tslib';
 import { async } from '@angular/core/testing';
@@ -35,6 +35,8 @@ export class NavigationComponent implements OnInit {
   /***** MAPQUEST*********/
   const Directions = require('@mapquest/directions');
   this.directions = new Directions({key:'m1jpNvsJysGjdIBF7S1SP3FvELZBsljP'})
+
+  
   }
 
   chosenPlaceDeparture= '';
@@ -45,7 +47,6 @@ export class NavigationComponent implements OnInit {
   async onEnterDeparture(chosenPlace: string) { 
     this.chosenPlaceDeparture = chosenPlace;
     const provider = new OpenStreetMapProvider();
-    var test='';
     this.departure = await provider
       .search({ query: this.chosenPlaceDeparture });
 
@@ -53,11 +54,7 @@ export class NavigationComponent implements OnInit {
     this.departureLong = this.departure[0].x;
     this.departureLat = this.departure[0].y;
 
-    this.markerDeparture
-    .remove()
-    .setLngLat([this.departureLong, this.departureLat])
-    .addTo(this.map);
-    // this.markerDeparture.setDraggable(true);
+    this.placeMarker(this.markerDeparture,this.departureLong,this.departureLat)
   }
 
   chosenPlaceArrival= '';
@@ -74,13 +71,18 @@ export class NavigationComponent implements OnInit {
     this.chosenPlaceArrival = this.arrival[0].label;
     this.arrivalLong = this.arrival[0].x;
     this.arrivalLat = this.arrival[0].y;
-    this.markerArrival
-    .remove()
-    .setLngLat([this.arrivalLong, this.arrivalLat])
-    .addTo(this.map);
-    // this.markerArrival.setDraggable(true);
-    
+    this.placeMarker(this.markerArrival,this.arrivalLong, this.arrivalLat);
 }
+
+placeMarker(marker,longitude,latitude){
+  marker
+  .remove()
+  .setLngLat([longitude,latitude])
+  .addTo(this.map);
+  // this.markerDeparture.setDraggable(true);
+  // a changer et recuperer la position 
+}
+
 travel;
  async searchDestination(){
   this.travel = await this.directions.route({
@@ -103,4 +105,25 @@ console.log(this.travel);
 // }
 
 }
+test;
+longPosition = 0;
+latPosition = 0;
+myPosition(){
+if (navigator.geolocation){
+ navigator.geolocation.getCurrentPosition( this.locationFound, this.locationNotFound);
+console.log("test")
+//this.placeMarker(this.markerDeparture,this.longPosition,this.latPosition);
+}
+
+}
+locationFound(position){
+  var longitude = position.coords.longitude;
+  console.log(longitude);
+  var latitude = position.coords.latitude;
+  console.log(latitude);
+  this.placeMarker(this.markerDeparture,longitude,latitude)
+  }
+  locationNotFound(){
+    alert("Votre Position n'a pas été trouvé.")
+  }
 }

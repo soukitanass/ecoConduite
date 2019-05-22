@@ -3,9 +3,10 @@
 </h1>
 <p>Départ</p>
 <input #box1 (keyup.enter)="onEnterDeparture(box1.value)">
+<input type="button" value="Localisation" (click)="myPosition()">
 <p> Arrivée</p>
 <input #box2 (keyup.enter)="onEnterArrival(box2.value)">
-
+<p></p>
 <input type="button" value="Lancer" (click)="searchDestination()">
 <p>vous avez choisi de partir de <b>{{chosenPlaceDeparture}}</b> pour arriver à <b>{{chosenPlaceArrival}}</b></p>
 <div id="map"></div>
