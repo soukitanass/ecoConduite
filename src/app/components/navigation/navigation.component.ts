@@ -16,7 +16,6 @@ export class NavigationComponent implements OnInit {
   map;
   markerArrival;
   markerDeparture;
-  mapboxDirection;
   directions;
   displayDirection;
 
@@ -33,8 +32,14 @@ export class NavigationComponent implements OnInit {
     this.markerDeparture = new this.mapboxgl.Marker()
   
   /***** MAPQUEST*********/
-  const Directions = require('@mapquest/directions');
-  this.directions = new Directions({key:'m1jpNvsJysGjdIBF7S1SP3FvELZBsljP'})
+  var MapboxDirection = require('@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions');
+  this.directions = new MapboxDirection({
+      accessToken: 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng',
+      unit: 'metric',
+      profile: 'mapbox/driving-traffic'
+    });
+    console.log(this.directions);
+    this.map.addControl(this.directions, 'top-left');
   }
 
   chosenPlaceDeparture= '';
