@@ -35,8 +35,6 @@ export class NavigationComponent implements OnInit {
   /***** MAPQUEST*********/
   const Directions = require('@mapquest/directions');
   this.directions = new Directions({key:'m1jpNvsJysGjdIBF7S1SP3FvELZBsljP'})
-
-  
   }
 
   chosenPlaceDeparture= '';
@@ -105,25 +103,19 @@ console.log(this.travel);
 // }
 
 }
-test;
-longPosition = 0;
-latPosition = 0;
+
 myPosition(){
 if (navigator.geolocation){
- navigator.geolocation.getCurrentPosition( this.locationFound, this.locationNotFound);
-console.log("test")
-//this.placeMarker(this.markerDeparture,this.longPosition,this.latPosition);
+ navigator.geolocation.getCurrentPosition( this.locationFound.bind(this), this.locationNotFound.bind(this));
 }
 
 }
+
 locationFound(position){
-  var longitude = position.coords.longitude;
-  console.log(longitude);
-  var latitude = position.coords.latitude;
-  console.log(latitude);
-  this.placeMarker(this.markerDeparture,longitude,latitude)
+  this.placeMarker(this.markerDeparture,position.coords.longitude,position.coords.latitude);
   }
-  locationNotFound(){
+
+locationNotFound(){
     alert("Votre Position n'a pas été trouvé.")
   }
 }
