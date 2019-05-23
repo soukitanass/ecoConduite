@@ -17,50 +17,62 @@ export class NavigationComponent implements OnInit {
   makerPosition
   directions;
   displayDirection;
-
+  getElevation
   ngOnInit() {
-  /*******MAPBOX*************/
-    this.mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-    this.mapboxgl.accessToken = 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
+  /*******SETUP*************/
+  this.mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+  this.mapboxgl.accessToken = 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
+  
 
+   /*******MAP*************/
     this.map = new this.mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11'
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      zoom: 1
     });
     this.makerPosition = new this.mapboxgl.Marker()
 
-  /***** MAPQUEST*********/
-  var MapboxDirection = require('@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions');
-  this.directions = new MapboxDirection({
+    /*****DIRECTION*********/
+    var mapboxDirection = require('@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions');
+    this.directions = new mapboxDirection({
       accessToken: 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng',
       unit: 'metric',
       profile: 'mapbox/driving-traffic'
     });
     console.log(this.directions);
     this.map.addControl(this.directions, 'top-left');
+
+    /*****ELEVATION*********/
+  //   var mapboxElevation = require('mapbox-elevation');
+  //   var getElevation= new mapboxElevation({
+  //     accessToken: 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng'
+  //   });
+
+ 
+  // getElevation([86.925313, 27.988730], function(err, elevation) {
+  //   console.log('elevation at the summit of mt everest', elevation);
+  // });
   }
 
 
 
-placeMarker(marker,longitude,latitude){
-  marker
-  .remove()
-  .setLngLat([longitude,latitude])
-  .addTo(this.map);
-  // this.markerDeparture.setDraggable(true);
-  // a changer et recuperer la position 
-}
-
-myPosition(){
-if (navigator.geolocation){
- navigator.geolocation.getCurrentPosition( this.locationFound.bind(this), this.locationNotFound.bind(this));
-}}
-
-locationFound(position){
-  this.placeMarker(this.makerPosition,position.coords.longitude,position.coords.latitude);
+  placeMarker(marker,longitude,latitude){
+    marker
+      .remove()
+      .setLngLat([longitude,latitude])
+      .addTo(this.map);
   }
 
-locationNotFound(){
+  myPosition(){
+    if (navigator.geolocation){
+    navigator.geolocation.getCurrentPosition( this.locationFound.bind(this), this.locationNotFound.bind(this));
+    }}
+
+  locationFound(position){
+    this.placeMarker(this.makerPosition,position.coords.longitude,position.coords.latitude);
+  }
+
+  locationNotFound(){
     alert("Votre Position n'a pas été trouvé.")
   }
 }

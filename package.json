@@ -24,6 +24,7 @@
     "bulma": "^0.7.4",
     "core-js": "^2.5.4",
     "leaflet-geosearch": "^2.7.0",
+    "mapbox-elevation": "^1.0.0",
     "mapbox-gl": "^0.54.0",
     "ng-packagr": "^5.1.0",
     "rxjs": "~6.3.3",
