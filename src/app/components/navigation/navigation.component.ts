@@ -41,6 +41,10 @@ export class NavigationComponent implements OnInit {
     });
     console.log(this.directions);
     this.map.addControl(this.directions, 'top-left');
+    this.map.addControl(new this.mapboxgl.GeolocateControl({
+      positionOptions:{enableHighAccuracy: true },
+      trackUserLocation: true
+    }));
 
     /*****ELEVATION*********/
   //   var mapboxElevation = require('mapbox-elevation');
@@ -61,18 +65,5 @@ export class NavigationComponent implements OnInit {
       .remove()
       .setLngLat([longitude,latitude])
       .addTo(this.map);
-  }
-
-  myPosition(){
-    if (navigator.geolocation){
-    navigator.geolocation.getCurrentPosition( this.locationFound.bind(this), this.locationNotFound.bind(this));
-    }}
-
-  locationFound(position){
-    this.placeMarker(this.makerPosition,position.coords.longitude,position.coords.latitude);
-  }
-
-  locationNotFound(){
-    alert("Votre Position n'a pas été trouvé.")
   }
 }
