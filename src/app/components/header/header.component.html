@@ -7,14 +7,19 @@
 </head>
   
 <header>
+  <img id="bgleft" src="../../../assets/BackgroundLeft.png" >
   <div id="logo">
     <img src="../../../assets/logo.png">
   </div>
+  <img id="bgright" src="../../../assets/BackgroundRight.png" >
 </header>
   
 <div id="sidebar">
   <div class="toggle-btn" (click)="toggleSidebar($event)">
-    <button type="button">☰</button>
+    
+    <div id="top"></div>
+    <div id="middle"></div>
+    <div id="bottom"></div>
   </div>
   <ul>
     <li><a routerLink=""> Acceuil </a></li>
@@ -24,4 +29,4 @@
     <li><a routerLink="about"> A propos </a></li>
   </ul>
 </div>
-</html>
+</html> 
