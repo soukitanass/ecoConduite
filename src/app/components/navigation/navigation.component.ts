@@ -56,9 +56,30 @@ export class NavigationComponent implements OnInit {
   // getElevation([86.925313, 27.988730], function(err, elevation) {
   //   console.log('elevation at the summit of mt everest', elevation);
   // });
+  
   }
 
+simulation(){
+  var req = new XMLHttpRequest();
+  var test : string
+  req.open("POST","https://api.mapbox.com/directions/v5/mapbox/driving/-71.923668,45.380761;-71.931383,45.379634?annotations=maxspeed,speed,duration,distance&overview=full&steps=true&access_token=pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng")
+ test = req.responseText
+ console.log(test)
+  // let positionSteps: Array<string>;
+// var marker = new this.mapboxgl.Marker();
+// var array = document.getElementById("map").getElementsByTagName('li');
+// var lenght = array.length;
+// console.log(array);
+// for(var i=0; i< array.length; i++)
+// {
+//   positionSteps[i] = array[i].attributes.getNamedItem("data-lat").nodeValue+','+array[i].attributes.getNamedItem("data-lng").nodeValue;
+// }
+// console.log(positionSteps)
+// var test = array[0]
+// this.placeMarker(marker, array[1].attributes.getNamedItem("data-lng").nodeValue, array[1].attributes.getNamedItem("data-lat").nodeValue )
 
+
+}
 
   placeMarker(marker,longitude,latitude){
     marker
