@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import { __await } from 'tslib';
 import { async } from '@angular/core/testing';
 import {} from '@mapbox/mapbox-gl-directions'
+import { HttpClient, HttpParams } from '@angular/common/http';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -10,7 +10,7 @@ import {} from '@mapbox/mapbox-gl-directions'
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http : HttpClient) { }
 
   mapboxgl;
   map;
@@ -46,19 +46,18 @@ export class NavigationComponent implements OnInit {
       trackUserLocation: true
     }));
 
-    /*****ELEVATION*********/
-  //   var mapboxElevation = require('mapbox-elevation');
-  //   var getElevation= new mapboxElevation({
-  //     accessToken: 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng'
-  //   });
-
- 
-  // getElevation([86.925313, 27.988730], function(err, elevation) {
-  //   console.log('elevation at the summit of mt everest', elevation);
-  // });
   }
-
-
+simulation(){
+  let accestoken ='pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
+  let URL = 'https://api.mapbox.com/directions/v5/mapbox/driving/-71.923668,45.380761;-71.931383,45.379634';
+  let params = new HttpParams()
+    .set('steps','true')
+    .set('access_token','pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng')
+  
+  this.http.post(URL, {parametre: params})
+    .subscribe(data =>{console.log(data)},(error)=>{console.log('erreur'+error)});
+  console.log("Lancement de la simulation")
+}
 
   placeMarker(marker,longitude,latitude){
     marker
