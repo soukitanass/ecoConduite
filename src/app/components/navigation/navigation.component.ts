@@ -19,6 +19,7 @@ export class NavigationComponent implements OnInit {
   directions;
   displayDirection;
   getElevation
+  data
   accessToken = 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
   ngOnInit() {
   /*******SETUP*************/
@@ -64,7 +65,11 @@ export class NavigationComponent implements OnInit {
   console.log(URL)
   var test =  this.http.get(URL)
     .subscribe(
-      data =>{console.log(data)},
+      data =>{
+        console.log(data);
+        this.data = data;
+        console.log(data['routes'][0].distance);
+      },
       (error)=>{console.log('erreur'+error)});
   console.log("Lancement de la simulation")
 
