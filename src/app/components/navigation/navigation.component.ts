@@ -51,10 +51,13 @@ export class NavigationComponent implements OnInit {
 
   departure;
   arrival;
-  directionHttp
+
+  directionHttp;
+
+
  simulation(){
   this.departure = this.directions.getOrigin()['geometry'].coordinates;
-  this.arrival = this.directions.getDestination()['geometry'].coordinates
+  this.arrival = this.directions.getDestination()['geometry'].coordinates;
   let URL = 'https://api.mapbox.com/directions/v5/mapbox/driving/'+this.departure+';'+this.arrival+'?&steps=true&access_token=pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
   this.http.get(URL)
     .subscribe(
