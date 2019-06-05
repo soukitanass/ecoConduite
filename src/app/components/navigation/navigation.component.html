@@ -2,4 +2,21 @@
   Page de navigation
 </h1>
 <div id="map"></div>
+<div id="text">
+    Départ : {{simulation.departure}}<br>
+    Arrivée : {{arrival}} <br>
+  </div>
+<label>choisir vos paramètres:</label>
+Steps:
+  <div class="control">
+      <label class="radio">
+        <input type="radio" name="answer">
+        True
+      </label>
+      <label class="radio">
+        <input type="radio" name="answer">
+        False
+      </label>
+    </div>
 <button (click)="simulation()" > Lancer la simulation</button>
+

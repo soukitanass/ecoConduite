@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { __await } from 'tslib';
 import { async } from '@angular/core/testing';
 import {} from '@mapbox/mapbox-gl-directions'
+import {} from 'mapbox-elevation'
 import { HttpClient, HttpParams } from '@angular/common/http';
 @Component({
   selector: 'app-navigation',
@@ -18,10 +19,11 @@ export class NavigationComponent implements OnInit {
   directions;
   displayDirection;
   getElevation
+  accessToken = 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
   ngOnInit() {
   /*******SETUP*************/
   this.mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-  this.mapboxgl.accessToken = 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
+  this.mapboxgl.accessToken = this.accessToken;
   
 
    /*******MAP*************/
@@ -35,28 +37,37 @@ export class NavigationComponent implements OnInit {
     /*****DIRECTION*********/
     var mapboxDirection = require('@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions');
     this.directions = new mapboxDirection({
-      accessToken: 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng',
+      accessToken: this.accessToken,
       unit: 'metric',
       profile: 'mapbox/driving-traffic'
     });
-    console.log(this.directions);
     this.map.addControl(this.directions, 'top-left');
     this.map.addControl(new this.mapboxgl.GeolocateControl({
       positionOptions:{enableHighAccuracy: true },
       trackUserLocation: true
     }));
-
+    //var mapboxElevation = require('mapbox-elevation');
+   // var getElevation = mapboxElevation(this.accessToken);
+  //getElevation([86.925313, 27.988730], function(err, elevation) {
+  //console.log('elevation at the summit of mt everest', elevation);});
   }
-simulation(){
-  let accestoken ='pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
-  let URL = 'https://api.mapbox.com/directions/v5/mapbox/driving/-71.923668,45.380761;-71.931383,45.379634';
-  let params = new HttpParams()
-    .set('steps','true')
-    .set('access_token','pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng')
   
-  this.http.post(URL, {parametre: params})
-    .subscribe(data =>{console.log(data)},(error)=>{console.log('erreur'+error)});
+ simulation(){
+
+ let steps =  document.getElementsByClassName("mapbox-directions-step")
+  var lenght = steps.length
+  var departure = steps[0].getAttribute("data-lng")+','+steps[0].getAttribute("data-lat")
+  var arrival = steps[lenght-1].getAttribute("data-lng")+','+steps[lenght-1].getAttribute("data-lat")
+  let URL = 'https://api.mapbox.com/directions/v5/mapbox/driving/'+departure+';'+arrival+'?&steps=true&access_token=pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
+  console.log(departure)
+  console.log(arrival)
+  console.log(URL)
+  var test =  this.http.get(URL)
+    .subscribe(
+      data =>{console.log(data)},
+      (error)=>{console.log('erreur'+error)});
   console.log("Lancement de la simulation")
+
 }
 
   placeMarker(marker,longitude,latitude){
