@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SystemJsNgModuleLoaderConfig } from '@angular/core';
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import { __await } from 'tslib';
 import { async } from '@angular/core/testing';
 import {} from '@mapbox/mapbox-gl-directions'
+
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
