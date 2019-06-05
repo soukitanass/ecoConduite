@@ -12,7 +12,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class NavigationComponent implements OnInit {
 
   constructor(private http : HttpClient) { }
-
+  
   mapboxgl;
   map;
   makerPosition
@@ -51,20 +51,23 @@ export class NavigationComponent implements OnInit {
   //getElevation([86.925313, 27.988730], function(err, elevation) {
   //console.log('elevation at the summit of mt everest', elevation);});
   }
-  
+
+  departure;
+  arrival;
  simulation(){
 
  let steps =  document.getElementsByClassName("mapbox-directions-step")
   var lenght = steps.length
-  var departure = steps[0].getAttribute("data-lng")+','+steps[0].getAttribute("data-lat")
-  var arrival = steps[lenght-1].getAttribute("data-lng")+','+steps[lenght-1].getAttribute("data-lat")
-  let URL = 'https://api.mapbox.com/directions/v5/mapbox/driving/'+departure+';'+arrival+'?&steps=true&access_token=pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
-  console.log(departure)
-  console.log(arrival)
+  this.departure = steps[0].getAttribute("data-lng")+','+steps[0].getAttribute("data-lat")
+  this.arrival = steps[lenght-1].getAttribute("data-lng")+','+steps[lenght-1].getAttribute("data-lat")
+  let URL = 'https://api.mapbox.com/directions/v5/mapbox/driving/'+this.departure+';'+this.arrival+'?&steps=true&access_token=pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
+  console.log(this.departure)
+  console.log(this.arrival)
   console.log(URL)
-  var test =  this.http.get(URL)
+  enum test  { routes}
+  this.http.get(URL)
     .subscribe(
-      data =>{console.log(data)},
+      data =>{console.log(<Text>data)},
       (error)=>{console.log('erreur'+error)});
   console.log("Lancement de la simulation")
 
