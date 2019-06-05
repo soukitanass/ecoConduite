@@ -51,6 +51,7 @@ export class NavigationComponent implements OnInit {
 
   departure;
   arrival;
+  directionHttp
  simulation(){
   this.departure = this.directions.getOrigin()['geometry'].coordinates;
   this.arrival = this.directions.getDestination()['geometry'].coordinates
@@ -58,7 +59,8 @@ export class NavigationComponent implements OnInit {
   this.http.get(URL)
     .subscribe(
       data =>{
-        console.log(data['routes'][0].legs[0].steps);
+        this.directionHttp = data['routes'][0].legs[0].steps;
+        console.log(this.directionHttp);
       },
       (error)=>{console.log('erreur'+error)});
 }
