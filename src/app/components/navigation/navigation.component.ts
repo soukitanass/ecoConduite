@@ -51,14 +51,16 @@ export class NavigationComponent implements OnInit {
   
  simulation(){
   var departure = this.directions.getOrigin()['geometry'].coordinates;
-  var arrival = this.directions.getDestination()['geometry'].coordinates
+  var arrival = this.directions.getDestination()['geometry'].coordinates;
   let URL = 'https://api.mapbox.com/directions/v5/mapbox/driving/'+departure+';'+arrival+'?&steps=true&access_token=pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
   this.http.get(URL)
     .subscribe(
       data =>{
-        console.log(data['routes'][0].legs[0].steps);
+        console.log(data['routes'][0]);
       },
-      (error)=>{console.log('erreur'+error)});
+      (error)=>{
+        console.log('erreur'+error)
+      });
 }
 
   placeMarker(marker,longitude,latitude){
