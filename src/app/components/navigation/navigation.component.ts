@@ -11,7 +11,7 @@ import { HttpClient} from '@angular/common/http';
 export class NavigationComponent implements OnInit {
 
   constructor(private http : HttpClient) { }
-
+  
   mapboxgl;
   map;
   makerPosition
@@ -48,15 +48,22 @@ export class NavigationComponent implements OnInit {
     }));
   
   }
-  
+
+  departure;
+  arrival;
+
+  directionHttp;
+
+
  simulation(){
-  var departure = this.directions.getOrigin()['geometry'].coordinates;
-  var arrival = this.directions.getDestination()['geometry'].coordinates;
-  let URL = 'https://api.mapbox.com/directions/v5/mapbox/driving/'+departure+';'+arrival+'?&steps=true&access_token=pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
+  this.departure = this.directions.getOrigin()['geometry'].coordinates;
+  this.arrival = this.directions.getDestination()['geometry'].coordinates;
+  let URL = 'https://api.mapbox.com/directions/v5/mapbox/driving/'+this.departure+';'+this.arrival+'?&steps=true&access_token=pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
   this.http.get(URL)
     .subscribe(
       data =>{
-        console.log(data['routes'][0]);
+        this.directionHttp = data['routes'][0].legs[0].steps;
+        console.log(this.directionHttp);
       },
       (error)=>{
         console.log('erreur'+error)
