@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, Input} from '@angular/core';
+import { Component, ViewEncapsulation, OnInit} from '@angular/core';
 
 
 @Component({
