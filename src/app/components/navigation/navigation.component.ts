@@ -55,7 +55,7 @@ export class NavigationComponent implements OnInit {
     .subscribe(
       data =>{
         this.directionHttp = data['routes'][0].legs[0].steps;
-        console.log(this.directionHttp);
+        //console.log(this.directionHttp);
       },
       (error)=>{
         console.log('erreur'+error)

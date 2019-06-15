@@ -29,7 +29,6 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot(appRoutes),
     FormsModule,
     HttpClientModule,
-    HeaderComponent,
   ],
   exports:[
     HeaderComponent,

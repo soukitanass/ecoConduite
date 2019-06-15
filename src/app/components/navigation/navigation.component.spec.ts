@@ -29,4 +29,22 @@ describe('NavigationComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call simulation', () => {
+    expect(component.simulation).toBeTruthy();
+  });
+
+  it('should call ngInit', () => {
+    expect(component.ngOnInit).toBeTruthy();
+  });
+
+  it('should execute simulation', () => {
+    component.directions.setOrigin('Sherbrooke') ;
+    component.directions.setDestination('Montreal') ;
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(component.simulation).toHaveBeenCalled();
+    });
+  });
 });

@@ -19,7 +19,26 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create header component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call toggleSideBar', () => {
+    expect(component.toggleSidebar).toBeTruthy();
+  });
+
+  it('should call ngOnInit', () => {
+    expect(component.ngOnInit).toBeTruthy();
+  });
+
+  
+  it('should toggle sidebar', () => {
+    let div = fixture.debugElement.nativeElement.querySelector('div');
+    div.click();
+    fixture.detectChanges();
+
+  fixture.whenStable().then(() => {
+    expect(component.toggleSidebar).toHaveBeenCalled();
+  });
   });
 });
