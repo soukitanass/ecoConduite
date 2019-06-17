@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { async } from '@angular/core/testing';
-import { defer } from 'rxjs';
-//import {} from '@types/googlemaps';
 
 @Component({
   selector: 'app-contact',

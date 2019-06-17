@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { __await } from 'tslib';
 import {} from '@mapbox/mapbox-gl-directions'
 import {} from 'mapbox-elevation'
@@ -14,16 +14,16 @@ export class NavigationComponent implements OnInit {
   
   mapboxgl;
   map;
-  makerPosition
   directions;
-  displayDirection;
-  getElevation
+  departure;
+  arrival;
+  directionHttp;
+
   accessToken = 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
   ngOnInit() {
   /*******SETUP*************/
   this.mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
   this.mapboxgl.accessToken = this.accessToken;
-  
 
    /*******MAP*************/
     this.map = new this.mapboxgl.Map({
@@ -31,8 +31,6 @@ export class NavigationComponent implements OnInit {
       style: 'mapbox://styles/mapbox/streets-v11',
       zoom: 1
     });
-    this.makerPosition = new this.mapboxgl.Marker()
-
     /*****DIRECTION*********/
     var mapboxDirection = require('@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions');
     this.directions = new mapboxDirection({
@@ -49,12 +47,6 @@ export class NavigationComponent implements OnInit {
   
   }
 
-  departure;
-  arrival;
-
-  directionHttp;
-
-
  simulation(){
   this.departure = this.directions.getOrigin()['geometry'].coordinates;
   this.arrival = this.directions.getDestination()['geometry'].coordinates;
@@ -63,17 +55,10 @@ export class NavigationComponent implements OnInit {
     .subscribe(
       data =>{
         this.directionHttp = data['routes'][0].legs[0].steps;
-        console.log(this.directionHttp);
+        //console.log(this.directionHttp);
       },
       (error)=>{
         console.log('erreur'+error)
       });
 }
-
-  placeMarker(marker,longitude,latitude){
-    marker
-      .remove()
-      .setLngLat([longitude,latitude])
-      .addTo(this.map);
-  }
 }
