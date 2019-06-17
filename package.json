@@ -23,6 +23,7 @@
     "@mapbox/mapbox-gl-directions": "^4.0.0",
     "@mapbox/tilebelt": "^1.0.1",
     "@mapquest/directions": "^0.3.3",
+    "@types/mathjs": "^5.0.1",
     "bulma": "^0.7.4",
     "core-js": "^2.5.4",
     "leaflet-geosearch": "^2.7.0",
