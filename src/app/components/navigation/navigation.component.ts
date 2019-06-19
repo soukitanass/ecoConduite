@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { __await } from 'tslib';
 import {} from '@mapbox/mapbox-gl-directions'
 import {} from 'mapbox-elevation'
@@ -10,14 +10,14 @@ import { HttpClient} from '@angular/common/http';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-
-  
   
   mapboxgl;
   map;
   directions;
-  displayDirection;
-  getElevation
+  departure;
+  arrival;
+  directionHttp;
+  elevation;
   accessToken = 'pk.eyJ1IjoiaGVzdWVjbyIsImEiOiJjanZxcGs0bGUxNWk4M3pyaHIwMHZqcWR1In0.rlzswJuWogDNfb2qy860Ng';
   
   ngOnInit() {
@@ -26,7 +26,6 @@ export class NavigationComponent implements OnInit {
   /*******SETUP*************/
   this.mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
   this.mapboxgl.accessToken = this.accessToken;
-  
    /*******MAP*************/
     this.map = new this.mapboxgl.Map({
       container: 'map',
@@ -38,7 +37,6 @@ export class NavigationComponent implements OnInit {
       positionOptions:{enableHighAccuracy: true },
       trackUserLocation: true
     }));
-
     /*****DIRECTION*********/
     var mapboxDirection = require('@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions');
     this.directions = new mapboxDirection({
@@ -55,12 +53,7 @@ export class NavigationComponent implements OnInit {
   
   }
 
-
   constructor(private http : HttpClient) { }
-  departure;
-  arrival;
-  directionHttp;
-  elevation;
 
  simulation(){
   //this function is exectuted when the user enter the destination 
@@ -138,6 +131,7 @@ export class NavigationComponent implements OnInit {
   getDistance(){
     //Here we can have the distance between two coordinates
   }
+
 }
 
 

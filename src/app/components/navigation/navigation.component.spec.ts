@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule} from '@angular/common/http';
+
 
 import { NavigationComponent } from './navigation.component';
 
@@ -8,7 +10,12 @@ describe('NavigationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavigationComponent ]
+      declarations: [ 
+        NavigationComponent,
+       ],
+       imports: [
+        HttpClientModule,
+       ],
     })
     .compileComponents();
   }));
@@ -21,5 +28,23 @@ describe('NavigationComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call simulation', () => {
+    expect(component.simulation).toBeTruthy();
+  });
+
+  it('should call ngInit', () => {
+    expect(component.ngOnInit).toBeTruthy();
+  });
+
+  it('should execute simulation', () => {
+    component.directions.setOrigin('Sherbrooke') ;
+    component.directions.setDestination('Montreal') ;
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(component.simulation).toHaveBeenCalled();
+    });
   });
 });
