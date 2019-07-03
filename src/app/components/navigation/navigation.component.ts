@@ -71,13 +71,7 @@ export class NavigationComponent implements OnInit {
 
 }
 
-  placeMarker(marker,longitude,latitude){
-    // can place a marker on the map
-    marker
-      .remove()
-      .setLngLat([longitude,latitude])
-      .addTo(this.map);
-  }
+
   getElevation_(longitude,latitude){
     // can get elevation from a point 
     // the json file is not process yet
@@ -126,12 +120,9 @@ export class NavigationComponent implements OnInit {
     var angle = (Math.acos((AB[0]*BC[0]+AB[1]*BC[1])/(modAB*modBC))*180)/Math.PI;
 
     console.log('La valeur de langle est de :'+angle);
-  }
 
-  getDistance(){
-    //Here we can have the distance between two coordinates
+    return angle;
   }
-
 }
 
 
