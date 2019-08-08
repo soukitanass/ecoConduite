@@ -3,6 +3,7 @@ import { __await } from 'tslib';
 import {} from '@mapbox/mapbox-gl-directions'
 import {} from 'mapbox-elevation'
 import { HttpClient} from '@angular/common/http';
+import { AngularCsv } from 'angular7-csv';
 
 @Component({
   selector: 'app-navigation',
@@ -60,12 +61,20 @@ export class NavigationComponent implements OnInit {
   this.departure = this.directions.getOrigin()['geometry'].coordinates;
   this.arrival = this.directions.getDestination()['geometry'].coordinates;
 
+  var options = { 
+    fieldSeparator: ',',
+    quoteStrings: '"',
+    decimalseparator: '.',
+    headers: ["Longitude", "Latitude"]
+  };
   let URL = 'https://api.mapbox.com/directions/v5/mapbox/driving/'+this.departure+';'+this.arrival+'?&steps=true&geometries=geojson&overview=full&access_token='+this.accessToken;
   this.http.get(URL)
     .subscribe(
       data =>{
-        this.directionHttp = data['routes'][0];
+        this.directionHttp = data['routes'][0].geometry.coordinates;
+        // data['routes'][0].geometry.coordinates[0]
         console.log(this.directionHttp);
+        //new AngularCsv(JSON.stringify(this.directionHttp) , 'My Report',options);
       },
       (error)=>{console.log('erreur'+error)});
 
